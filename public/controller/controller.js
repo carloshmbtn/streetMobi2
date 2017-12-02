@@ -3,45 +3,10 @@ var app = angular.module('app');
 /* var app recebendo o modulo app do angular */
 
 /* Definindo controladoras, [dependencias( variaveis com $ são do proprio angular)] */
-app.controller('appController', ['$scope', 'dados', 'UsuarioFactory', 'PostFactory', 'Config', function($scope, dados, UsuarioFactory, PostFactory, Config){
+app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config', function($scope, dados, UsuarioFactory, Config){
     $scope.dados = dados;
     $scope.usuario = UsuarioFactory;
-    $scope.posts = [];
 
-    $scope.buscaPost = function(){
-        $scope.url = Config.getUrlBase();
-        PostFactory.listar().then(
-            function(dados){
-                $scope.posts = dados.data;
-            }
-        );
-    };
-
-    $scope.buscaPost();
-
-
-    UsuarioFactory.perfil().then(
-        function(dados){
-            $scope.img = Config.getUrlBase() + '/imagem/' + dados.data.imagem;
-        },
-        function(err){
-            if(err.error){
-                alert('Erro: ' + err.error);
-            }
-        }
-    );
-
-    $scope.postar = function(file, descricao){
-        var post = new Post(descricao, file);
-        PostFactory.criar(post).then(
-            function(dados){
-                alert('Criado com sucesso');
-                $scope.buscaPost();
-                $scope.file = null;
-                $scope.descricao = null;
-            }
-        );
-    };
 }]);
 
 app.controller('perfilController', ['$scope', 'Config', 'dados', 'UsuarioFactory', function($scope, Config, dados, UsuarioFactory){
@@ -60,28 +25,30 @@ app.controller('perfilController', ['$scope', 'Config', 'dados', 'UsuarioFactory
     );
 }]);
 
-app.controller('registrarController', ['$scope', 'UsuarioFactory', '$location', function($scope, UsuarioFactory, $location){
-    $scope.registrar = function(nome, nasc, login, email, senha, senhaC, file){
+app.controller('registrarController', ['$scope', '$http', '$location', function($scope, $http, $location){
+    $scope.registrar = function(nome, login, email, senha, senhaC, necessidade){
 
         if(senha != senhaC){
             alert('Senha não corresponde a confirmar senha');
             return;
         }
 
-        var usuario = new Usuario(nome, nasc, login, email, senha, file);
+        var usuario = {
+            'nome': nome,
+            'login': login,
+            'email': email,
+            'senha': senha,
+            'necessidade': necessidade
+        };
 
-        UsuarioFactory.registrar(usuario).then(
-            function(dados){
-                alert('Registrado com sucesso');
-                $location.path('/login');
-            },
-            function(err){
-                alert(err);
-            },
-            function(evt){
-                console.log(evt);
-            }
-        );
+        $http({method: 'POST', url: '/usuario', data: {'usuario': usuario}}).then(function(dados){
+            alert('Registrado com sucesso');
+            $location.path('/login');
+        },
+        function(err){
+            alert('Erro ao registrar usuário');
+        });
+
     };
 }]);
 

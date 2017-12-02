@@ -28,17 +28,9 @@ app.all('*', function (req, res, next) {
 
 
 /* Definição das rotas e dos metodos que tratam elas */
-app.get('/post', routes.valida, routes.listarPosts);
-app.get('/post/:id' , routes.valida, routes.buscarPost);
-app.get('/imagem/:nome', routes.buscarImagem);
-app.post('/post', routes.valida, routes.upload, routes.criarPost);
-app.post('/usuario', routes.upload, routes.criarUsuario);
+
+app.post('/usuario', routes.criarUsuario);
 app.post('/login', routes.logarUsuario);
-app.get('/perfil', routes.valida, routes.perfil);
-app.get('/perfilPublic/:usuario', routes.perfilPublic);
-app.get('/amigo/:id', routes.valida, routes.adicionarAmigo);
-app.get('/verificaAmigo/:id', routes.verificaAmigo);
-app.get('/buscarPerfil/:nome', routes.buscarPerfil);
 app.get('/teste', routes.valida, routes.teste);
 
 /* relações entre entidades */

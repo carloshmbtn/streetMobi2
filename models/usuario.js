@@ -2,7 +2,6 @@
 module.exports = function(sequelize, DataTypes){
     var usuario = sequelize.define('Usuario', {
         nome: DataTypes.STRING,
-        dataNascimento: DataTypes.DATEONLY,
         login: {
             type: DataTypes.STRING,
             validate: {
@@ -22,7 +21,7 @@ module.exports = function(sequelize, DataTypes){
             }
         },
         senha: DataTypes.STRING(256),
-        imagem: DataTypes.TEXT
+        'necessidade': DataTypes.STRING
     });
     return usuario;
 };
