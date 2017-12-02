@@ -1,0 +1,86 @@
+
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Fechar</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Entrar
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form ng-submit="usuario.logar(login, senha)" role="form">
+                  <div class="form-group">
+                    <label for="inputLogin">Nome de usuário</label>
+                    <input id="inputLogin" class="form-control" type="text" placeholder="Entre com nome de usuário" name="uname" required ng-model="login">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputSenha">Senha</label>
+                    <input id="inputSenha" class="form-control" type="password" placeholder="Entre com a senha" name="psw" required ng-model="senha">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-success" type="submit" onclick="hideForm();">Login</button>
+                  </div>
+                </form>
+                <div class="formLogin">
+                  <button type="button" class="btn btn-primary btn-block" onclick="ir('/#/registrar')" data-dismiss="myModalNorm">Registrar</button>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-theme w3-padding" id="myHeader">
+  <div class="w3-center">
+  <h4>Mostre as suas imagens para o mundo</h4>
+  <h1 class="w3-xxxlarge w3-animate-bottom">PIC</h1>
+    <div class="w3-padding-32">
+      <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" style="font-weight:900;" data-toggle="modal" data-target="#myModalNorm">Entrar</button>
+    </div>
+  </div>
+</header>
+
+<div class="w3-row-padding w3-center w3-margin-top">
+  <div class="w3-third">
+    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+    <h4>Web</h4><br>
+    <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+    <p>Poste suas imagens atráves de um computador</p>
+    <p>Veja outras imagens</p>
+    </div>
+  </div>
+
+  <div class="w3-third">
+    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+    <h4>Imagens</h4><br>
+    <i class="fa fa-camera w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+    <p>Mostre sua criatividade</p>
+    <p>Experimente enviar suas fotos</p>
+    </div>
+  </div>
+
+  <div class="w3-third">
+    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+    <h4>Pessoas</h4><br>
+    <i class="fa fa-users w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+    <p>Siga outras pessoas</p>
+    <p>Veja imagens de outras pessoas</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+
+<div class="container formLogin">
+  <form ng-submit="registrar(nome, nasc, login, email, senha, senhaC, file)" class="form-class">
+    <div class="form-group">
+      <label for="inputNome">Nome</label>
+      <input type="text" class="form-control" id="inputNome" placeholder="Entre com o nome completo" ng-model="nome" pattern="[a-zA-Z À-ú]{10,250}" title="Mínimo 10, máximo 250 caracteres (pontos e caracteres especiais não permitidos)" required>
+    </div>
+    <div class="form-group">
+      <label for="inputDataNascimento">Data de Nascimento</label>
+      <input type="text" class="form-control" id="inputDataNascimento" placeholder="dd/mm/aaaa" ng-model="nasc" pattern="\d{1,2}/\d{1,2}/\d{4}" required>
+    </div>
+    <div class="form-group">
+      <label for="inputNomeUsuario">Nome de Usuário</label>
+      <input type="text" class="form-control" id="inputNomeUsuario" placeholder="Entre com nome de usuário" ng-model="login" pattern="[a-zA-Z0-9_]{10,20}" title="Mínimo 10, máximo 20 caracters (somente letras, números e _)" required>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" placeholder="Entre com email" ng-model="email" required>
+    </div>
+    <div class="form-group">
+      <label for="inputSenha">Senha</label>
+      <input type="password" class="form-control" id="inputSenha" placeholder="Entre com a senha" ng-model="senha" pattern=".{6,50}" title="Mínimo 6, máximo 50 caracteres" required>
+    </div>
+    <div class="form-group">
+      <label for="inputConfSenha">Confirmar Senha</label>
+      <input type="password" class="form-control" id="inputConfSenha" placeholder="Repita a senha acima" ng-model="senhaC" required>
+    </div>
+    <div class="form-group">
+      <label for="inputImagemPerfil">Imagem de perfil</label>
+      <input type="file" id="inputImagemPerfil" ngf-select ng-model="file" ngf-pattern="'image/*'" accept="image/*" name="file" required>
+      <p class="help-block">Selecione uma imagem de perfil</p>
+    </div>
+    <button type="submit" class="btn btn-default">Registrar</button>
+  </form>
+</div>

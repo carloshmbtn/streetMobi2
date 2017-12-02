@@ -1,0 +1,22 @@
+{
+  "name": "Pic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pic Group",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "hash.js": "^1.0.3",
+    "jsonwebtoken": "^7.2.1",
+    "multer": "^1.2.1",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.28.0",
+    "sqlite": "^2.3.0"
+  }
+}
