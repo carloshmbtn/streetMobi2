@@ -1,45 +1,42 @@
-
-<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <button type="button" class="close"
-                   data-dismiss="modal">
-                       <span aria-hidden="true">&times;</span>
-                       <span class="sr-only">Fechar</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <button type="button" class="close" data-dismiss="modal">
+                     <span aria-hidden="true">&times;</span>
+                     <span class="sr-only">Fechar</span>
+              </button>
+                <h6 class="modal-title" id="myModalLabel">
                     Entrar
-                </h4>
+                </h6>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
                 <form ng-submit="usuario.logar(login, senha)" role="form">
-                  <div class="form-group">
-                    <label for="inputLogin">Nome de usuário</label>
-                    <input id="inputLogin" class="form-control" type="text" placeholder="Entre com nome de usuário" name="uname" required ng-model="login">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputSenha">Senha</label>
-                    <input id="inputSenha" class="form-control" type="password" placeholder="Entre com a senha" name="psw" required ng-model="senha">
-                  </div>
-                  <div class="form-group">
-                    <button class="btn btn-success" type="submit" onclick="hideForm();">Login</button>
-                  </div>
+                    <div class="form-group">
+                        <label for="inputLogin">Nome de usuário</label>
+                        <input id="inputLogin" class="form-control" type="text" placeholder="Entre com nome de usuário" name="uname" required ng-model="login">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSenha">Senha</label>
+                        <input id="inputSenha" class="form-control" type="password" placeholder="Entre com a senha" name="psw" required ng-model="senha">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit" onclick="hideForm();">Login</button>
+                    </div>
                 </form>
                 <div class="formLogin">
-                  <button type="button" class="btn btn-primary btn-block" onclick="ir('/#/registrar')" data-dismiss="myModalNorm">Registrar</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick="ir('/#/registrar')" data-dismiss="myModalNorm">Registrar</button>
                 </div>
             </div>
 
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Fechar
-                </button>
+                          Fechar
+              </button>
             </div>
         </div>
     </div>
@@ -47,36 +44,68 @@
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
-  <div class="w3-center">
-  <h1 class="w3-xxxlarge w3-animate-bottom">Street Mobi</h1>
-    <div class="w3-padding-32">
-      <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" style="font-weight:900;" data-toggle="modal" data-target="#myModalNorm">Entrar</button>
+    <div class="w3-center">
+        <h1>StreetMobi</h1>
+        <h7 class=" w3-animate-bottom"> Um guia de acessibilidade para Campo Grande MS </h7>
+        <div class="w3-padding-32">
+            <button class="w3-btn  w3-dark-grey w3-hover-light-grey" style="font-weight:900;" data-toggle="modal" data-target="#myModalNorm">Entrar</button>
+        </div>
     </div>
-  </div>
 </header>
 
 <div class="w3-row-padding w3-center w3-margin-top">
-  <div class="w3-third">
-    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
-    <br>
-    <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-
+    <div class="col-md-3">
+        <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+            <h4> <strong>Mobilidade Urbana</strong> </h4><br>
+            <i class="fa fa-maps w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Ao andar pela cidade vemos que ela não é adaptada para pessoas com limitações físicas.</p>
+            <p>Nosso aplicativo tenta resolver esse problema, mostrando ao usuário que possui limitação, locais onde há problemas com acessibilidade.</p>
+            <p>Queremos dar mais autonomia à esse público.</p>
+        </div>
     </div>
-  </div>
 
-  <div class="w3-third">
-    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
-    <br>
-    <i class="fa fa-camera w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+    <div class="col-md-3">
+        <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+            <h4> <strong>Colaborativo</strong> </h4><br>
+            <i class="fa fa-users w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
 
+            <p>A plataforma se baseia na colaboração, onde pessoas com ou sem limitações públicas enviarão os locais onde existe problemas de mobilidade.</p>
+            <p></p>
+        </div>
     </div>
-  </div>
 
-  <div class="w3-third">
-    <div class="w3-card-2 w3-padding-top" style="min-height:460px">
-    <br>
-    <i class="fa fa-users w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-    
+
+    <div class="col-md-3">
+        <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+            <h4> <strong>Recompensas</strong></h4><br>
+            <i class="fa  w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Para incentivar os usuários a enviar locais com problema de mobilidade.</p>
+            <p>Teremos um sistema de rankeamento, onde o usuário poderá trocar seus pontos por descontos em estabelecimentos parceiros.</p>
+
+        </div>
     </div>
-  </div>
+
+    <div class="col-md-3">
+        <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+            <h4> <strong>Parceiros do programa</strong></h4><br>
+            <i class="fa  w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Como recompensa aos usuários, teremos descontos em estabelecimentos parceiros.</p>
+            <p> <a href="#"> Clique aqui para ver a lista de parceiros!</a></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <hr>
+        <div class="col-lg-12">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <p class="muted pull-right">© 2017 StreetMobi. Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
 </div>
