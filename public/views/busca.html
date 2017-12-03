@@ -1,7 +1,0 @@
-<div ng-include="'views/menu.html'"></div>
-
-<div id="main">
-    <p ng-repeat="u in usuarios track by $index">
-    <img ng-src="{{url+'/imagem/'+u.imagem}}" style="max-width: 50px; max-height: 50px;"> <a href="{{url+'/#/perfil/'+u.login}}">{{u.nome}}</a>
-    </p>
-</div>

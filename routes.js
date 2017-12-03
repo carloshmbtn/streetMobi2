@@ -59,11 +59,7 @@ module.exports = {
                             }
                         ).then(
                             function(usuario){
-                                usuario.save().then(
-                                    function(u){
-                                        u.addAmigo(u);
-                                    }
-                                );
+
                                 callback(false, usuario);
                             },
                             function(err){
@@ -144,6 +140,33 @@ module.exports = {
             res.writeHead(406, {"Content-Type": "application/json"});
             res.end('');
         }
+    },
+
+    cadastrarPonto: function(req, res){
+        var ponto = {
+            descricao: req.body.descricao,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            grupoX: '1',
+            grupoY: '1'
+        };
+
+        models.Ponto.create(ponto).then(
+            function(){
+                res.send({'erro': false, 'msg': 'Cadastrado com suceso!'});
+            },
+            function(err){
+                res.send({'erro': true, 'msg': 'Erro: '+err});
+            }
+        );
+    },
+
+    buscarPontos: function(req, res){
+        models.Ponto.findAll().then(
+            function(pontos){
+                res.send(pontos);
+            }
+        );
     },
 
     teste: function(req, res){

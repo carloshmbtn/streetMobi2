@@ -12,16 +12,6 @@ app.config(function($routeProvider) {
         controller: "appController",
         authorize: true
     })
-    .when("/perfil", {
-        templateUrl : "views/perfil.html",
-        controller: "perfilController",
-        authorize: true
-    })
-    .when("/perfil/:usuario", {
-        templateUrl : "views/perfil.html",
-        controller: "perfilPublicController",
-        authorize: false
-    })
     .when("/registrar", {
         templateUrl: "views/registrar.html",
         controller: "registrarController",
@@ -32,10 +22,10 @@ app.config(function($routeProvider) {
         controller: "appController",
         authorize: false,
         login: true
-    }).when("/busca/:nome", {
-        templateUrl: "views/busca.html",
-        controller: "buscaController",
-        authorize: false
+    })
+    .when("/registrarPonto", {
+        templateUrl: "views/ponto.html",
+        controller: "mapController"
     });
 });
 

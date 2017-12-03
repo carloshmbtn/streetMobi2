@@ -31,13 +31,10 @@ app.all('*', function (req, res, next) {
 
 app.post('/usuario', routes.criarUsuario);
 app.post('/login', routes.logarUsuario);
+app.post('/ponto', routes.valida, routes.cadastrarPonto);
+app.get('/pontos', routes.buscarPontos);
 app.get('/teste', routes.valida, routes.teste);
 
-/* relações entre entidades */
-
-models.Usuario.hasMany(models.Post, {foreignKey: 'usuario_id'});
-models.Post.belongsTo(models.Usuario, {foreignKey: 'usuario_id'});
-models.Usuario.belongsToMany(models.Usuario, {as: 'Amigos', through: models.UsuarioAmigos});
 
 /* Faz a sincronização entre os modelos e o banco de dados */
 models.sequelize.sync();

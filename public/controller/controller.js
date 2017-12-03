@@ -3,27 +3,44 @@ var app = angular.module('app');
 /* var app recebendo o modulo app do angular */
 
 /* Definindo controladoras, [dependencias( variaveis com $ são do proprio angular)] */
-app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config', function($scope, dados, UsuarioFactory, Config){
+app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config', '$window', function($scope, dados, UsuarioFactory, Config, $window){
+
     $scope.dados = dados;
     $scope.usuario = UsuarioFactory;
 
+    $scope.locate = function(){
+        navigator.geolocation.getCurrentPosition($scope.initMap);
+    }
+
+    $scope.initMap = function(position) {
+        var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: myLatLng
+        });
+        $scope.lat = (myLatLng.lat());
+        $scope. lng = (myLatLng.lng());
+
+
+        var userMarker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            draggable: true
+        });
+        map.setZoom(17);
+        map.panTo(userMarker.position);
+
+        google.maps.event.addListener(userMarker, 'dragend', function (event) {
+            $scope.lat = (this.getPosition().lat());
+            $scope.lng = (this.getPosition().lng());
+        });
+
+    }
+    $scope.locate();
+
 }]);
 
-app.controller('perfilController', ['$scope', 'Config', 'dados', 'UsuarioFactory', function($scope, Config, dados, UsuarioFactory){
-    $scope.dados = dados;
-    $scope.usuario = UsuarioFactory;
-
-    UsuarioFactory.perfil().then(
-        function(dados){
-            window.location.href = '/#/perfil/'+dados.data.login;
-        },
-        function(err){
-            if(err.error){
-                alert('Erro: ' + err.error);
-            }
-        }
-    );
-}]);
 
 app.controller('registrarController', ['$scope', '$http', '$location', function($scope, $http, $location){
     $scope.registrar = function(nome, login, email, senha, senhaC, necessidade){
@@ -52,56 +69,45 @@ app.controller('registrarController', ['$scope', '$http', '$location', function(
     };
 }]);
 
-app.controller('perfilPublicController', ['$scope', '$routeParams', 'UsuarioFactory', 'Config', function($scope, $routeParams, UsuarioFactory, Config){
-    var username = $routeParams.usuario;
-    UsuarioFactory.perfilPublic(username).then(
-        function(dados){
-            $scope.perfil = dados.data;
-            $scope.url = Config.getUrlBase() + '/imagem/'+ $scope.perfil.imagem;
-            var data = new Date($scope.perfil.dataNascimento);
-            $scope.perfil.dataNascimento = formatarData(data);
+app.controller('mapController', function($scope, $http){
+    $scope.lat = null;
+    $scope.lng = null;
+    $scope.locate = function(){
+        navigator.geolocation.getCurrentPosition($scope.initMap);
+    }
 
-            $scope.verificaAmigo($scope.perfil.id);
-        }
-    );
+    $scope.initMap = function(position) {
+        var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    $scope.verificaAmigo = function(id){
-        UsuarioFactory.verificaAmigo(id).then(
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: myLatLng
+        });
+        $scope.lat = (myLatLng.lat());
+        $scope. lng = (myLatLng.lng());
+
+
+        var userMarker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            draggable: true
+        });
+        map.setZoom(17);
+        map.panTo(userMarker.position);
+
+        google.maps.event.addListener(userMarker, 'dragend', function (event) {
+            $scope.lat = (this.getPosition().lat());
+            $scope.lng = (this.getPosition().lng());
+        });
+
+    }
+    $scope.locate();
+
+    $scope.registrarPonto = function(){
+        $http({method: 'POST', url: '/ponto', data: {'latitude': $scope.lat, 'longitude': $scope.lng, 'descricao': $scope.descricao}}).then(
             function(result){
-                var resposta = result.data;
-                $scope.mensagem = resposta.msg;
-                if(resposta.exibeBotao){
-                    $scope.exibeBotao = true;
-                }
-                else{
-                    $scope.exibeBotao = false;
-                }
+                alert(result.data.msg);
             }
         );
     }
-
-    $scope.addAmigo = function(id){
-        UsuarioFactory.adicionarAmigo(id).then(
-            function(result){
-                if(result.data.error){
-                    alert('Erro: '+result.data.msg);
-                }
-                else{
-                    alert(result.data.msg);
-                }
-                $scope.verificaAmigo(id);
-            }
-        );
-    }
-
-}]);
-
-app.controller('buscaController', ['$scope', '$routeParams', 'UsuarioFactory', 'Config', function($scope, $routeParams, UsuarioFactory, Config){
-    var nome = $routeParams.nome;
-    UsuarioFactory.buscarPerfil(nome).then(
-        function(result){
-            $scope.url = Config.getUrlBase();
-            $scope.usuarios = result.data;
-        }
-    );
-}]);
+});
