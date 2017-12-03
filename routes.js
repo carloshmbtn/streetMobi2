@@ -8,20 +8,20 @@ var models = require('./models'),
     fs = require('fs'),
     hash = require('hash.js');
 /* models importa os modelos
-* jwt é utilizado para gerenciamento de tokens para autenticação
-* multer utilizado para upload de imagens
-*
-*/
+ * jwt é utilizado para gerenciamento de tokens para autenticação
+ * multer utilizado para upload de imagens
+ *
+ */
 
 
 /* Configuração de local de armazenamento */
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function(req, file, cb) {
         cb(null, './uploads/');
     },
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
         var datetimestamp = Date.now();
-        cb(null, datetimestamp + util.gerarId() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+        cb(null, datetimestamp + util.gerarId() + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
     }
 });
 
@@ -31,38 +31,33 @@ module.exports = {
 
 
 
-    criarUsuario: function(req, res){
+    criarUsuario: function(req, res) {
         var usuario = req.body.usuario;
 
-        function exec(callback){
-            if(usuario.senha.length < 6 || usuario.senha.length > 50){
+        function exec(callback) {
+            if (usuario.senha.length < 6 || usuario.senha.length > 50) {
                 callback(true, "Use uma senha que contenha entre 6 e 50 caracteres");
             }
             usuario.senha = hash.sha256().update(usuario.senha).digest('hex');
-            models.Usuario.findAll(
-                {
-                    where: {'login': usuario.login}
-                }
-            ).then(
-                function(encontrado){
-                    if(encontrado.length > 0){
+            models.Usuario.findAll({
+                where: { 'login': usuario.login }
+            }).then(
+                function(encontrado) {
+                    if (encontrado.length > 0) {
                         callback(true, "Usuário já existe");
-                    }
-                    else{
-                        models.Usuario.create(
-                            {
-                                'login': usuario.login,
-                                'senha': usuario.senha,
-                                'nome': usuario.nome,
-                                'email': usuario.email,
-                                'necessidade': usuario.necessidade
-                            }
-                        ).then(
-                            function(usuario){
+                    } else {
+                        models.Usuario.create({
+                            'login': usuario.login,
+                            'senha': usuario.senha,
+                            'nome': usuario.nome,
+                            'email': usuario.email,
+                            'necessidade': usuario.necessidade
+                        }).then(
+                            function(usuario) {
 
                                 callback(false, usuario);
                             },
-                            function(err){
+                            function(err) {
                                 callback(true, err.message);
                             }
                         );
@@ -72,40 +67,33 @@ module.exports = {
         }
 
         exec(
-            function(err, msg){
-                if(!err){
+            function(err, msg) {
+                if (!err) {
                     res.send(msg);
-                }
-                else{
-                    if(imagem){
-                        var filePath = './uploads/'+imagem;
-                        fs.unlinkSync(filePath);
-                    }
-                    res.send({erro: {msg: msg}});
+                } else {
+
+                    res.send({ erro: { msg: msg } });
                 }
             }
         );
     },
 
-    logarUsuario: function(req, res){
+    logarUsuario: function(req, res) {
         var usuario = req.body.usuario;
-        models.Usuario.findAll(
-            {
-                where: {login: usuario.login}
-            }
-        ).then(
-            function(encontrado){
-                if(encontrado.length > 0 && encontrado[0].senha == hash.sha256().update(usuario.senha).digest('hex')){
+        models.Usuario.findAll({
+            where: { login: usuario.login }
+        }).then(
+            function(encontrado) {
+                if (encontrado.length > 0 && encontrado[0].senha == hash.sha256().update(usuario.senha).digest('hex')) {
                     var token = jwt.sign({
-                        login: usuario.login,
-                        id: encontrado[0].id},
-                        config.jwtKey,
-                        {expiresIn: '10m'}
+                            login: usuario.login,
+                            id: encontrado[0].id
+                        },
+                        config.jwtKey, { expiresIn: '10m' }
                     );
                     return res.send(token);
-                }
-                else{
-                    res.writeHead(500, {"Content-Type": "application/json"});
+                } else {
+                    res.writeHead(500, { "Content-Type": "application/json" });
                     res.end('');
                 }
             }
@@ -119,29 +107,27 @@ module.exports = {
         storage: storage
     }).single('file'),
 
-    valida: function(req, res, next){
+    valida: function(req, res, next) {
         /* 'Valida' intercepta requisições, verifica se elas são válidas (JWT) e faz um tratamento adequado */
         var key = req.headers.authorization;
-        if(key){
+        if (key) {
             key = key.split(" ").pop();
             jwt.verify(key, config.jwtKey, function(err, decoded) {
                 if (err) {
-                    res.writeHead(401, {"Content-Type": "application/json"});
+                    res.writeHead(401, { "Content-Type": "application/json" });
                     res.end('');
-                }
-                else{
+                } else {
                     req.decoded = decoded;
                     next();
                 }
             });
-        }
-        else{
-            res.writeHead(406, {"Content-Type": "application/json"});
+        } else {
+            res.writeHead(406, { "Content-Type": "application/json" });
             res.end('');
         }
     },
 
-    cadastrarPonto: function(req, res){
+    cadastrarPonto: function(req, res) {
 
         const id = req.decoded.id;
 
@@ -155,69 +141,68 @@ module.exports = {
         };
 
         models.Usuario.findById(id).then(
-            function(u){
+            function(u) {
                 models.Ponto.create(ponto).then(
-                    function(p){
+                    function(p) {
                         u.addPontos([p]);
-                        res.send({'erro': false, 'msg': 'Cadastrado com suceso!'});
+                        res.send({ 'erro': false, 'msg': 'Cadastrado com suceso!' });
                     },
-                    function(err){
-                        res.send({'erro': true, 'msg': 'Erro: '+err});
+                    function(err) {
+                        res.send({ 'erro': true, 'msg': 'Erro: ' + err });
                     }
                 );
             }
         )
     },
 
-    buscarPontos: function(req, res){
+    buscarPontos: function(req, res) {
         models.Ponto.findAll().then(
-            function(pontos){
+            function(pontos) {
                 res.send(pontos);
             }
         );
     },
 
-    meusPontos: function(req, res){
+    meusPontos: function(req, res) {
         const id = req.decoded.id;
 
         models.Usuario.find({
-            'where': {'id': id},
+            'where': { 'id': id },
             'include': [models.Ponto]
         }).then(
-            function(u){
+            function(u) {
                 res.send(u);
             }
         );
     },
 
-    atualizarPontos: function(req, res){
+    atualizarPontos: function(req, res) {
         var pontos = req.body.pontos;
 
-        function pogRep(){
-            if(pontos.length > 0){
+        function pogRep() {
+            if (pontos.length > 0) {
                 var final = pontos.pop();
 
                 //delete final.createdAt;
                 //delete final.updatedAt;
 
                 models.Ponto.findById(final.id).then(
-                    function(p){
+                    function(p) {
                         p.updateAttributes(final).then(
-                            function(){
+                            function() {
                                 pogRep();
                             }
                         );
                     }
                 );
-            }
-            else{
+            } else {
                 res.send('Deu tudo certo!!');
             }
         }
         pogRep();
     },
 
-    teste: function(req, res){
+    teste: function(req, res) {
         res.send('');
     }
 };

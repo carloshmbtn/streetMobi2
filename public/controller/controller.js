@@ -3,22 +3,22 @@ var app = angular.module('app');
 /* var app recebendo o modulo app do angular */
 
 /* Definindo controladoras, [dependencias( variaveis com $ são do proprio angular)] */
-app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config', '$window', '$http', function($scope, dados, UsuarioFactory, Config, $window, $http){
+app.controller('appController', ['$scope', 'dados', 'UsuarioFactory', 'Config', '$window', '$http', function($scope, dados, UsuarioFactory, Config, $window, $http) {
 
     $scope.dados = dados;
     $scope.usuario = UsuarioFactory;
 
     $scope.pontos = [];
     const cor = [
-        'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     ];
 
     $http.get('/pontos').then(
-        function(result){
+        function(result) {
             $scope.pontos = result.data;
 
-            $scope.locate = function(){
+            $scope.locate = function() {
                 navigator.geolocation.getCurrentPosition($scope.initMap);
             }
 
@@ -32,10 +32,10 @@ app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config',
                 $scope.lat = (myLatLng.lat());
                 $scope.lng = (myLatLng.lng());
 
-                for(i in $scope.pontos){
+                for (i in $scope.pontos) {
                     console.log($scope.pontos[i].tipo);
                     var userMarker = new google.maps.Marker({
-                        position: {'lat': parseFloat($scope.pontos[i].latitude), 'lng': parseFloat($scope.pontos[i].longitude)},
+                        position: { 'lat': parseFloat($scope.pontos[i].latitude), 'lng': parseFloat($scope.pontos[i].longitude) },
                         map: map,
                         draggable: false,
                         title: $scope.pontos[i].descricao,
@@ -46,9 +46,9 @@ app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config',
 
                 }
 
-                function pog(i, userMarker){
+                function pog(i, userMarker) {
                     var infowindow = new google.maps.InfoWindow({
-                        content: '<h4>'+$scope.pontos[i].descricao+'</h4>'
+                        content: '<h4>' + $scope.pontos[i].descricao + '</h4>'
                     });
 
 
@@ -73,10 +73,10 @@ app.controller('appController', ['$scope', 'dados', 'UsuarioFactory' , 'Config',
 }]);
 
 
-app.controller('registrarController', ['$scope', '$http', '$location', function($scope, $http, $location){
-    $scope.registrar = function(nome, login, email, senha, senhaC, necessidade){
+app.controller('registrarController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+    $scope.registrar = function(nome, login, email, senha, senhaC, necessidade) {
 
-        if(senha != senhaC){
+        if (senha != senhaC) {
             alert('Senha não corresponde a confirmar senha');
             return;
         }
@@ -89,21 +89,21 @@ app.controller('registrarController', ['$scope', '$http', '$location', function(
             'necessidade': necessidade
         };
 
-        $http({method: 'POST', url: '/usuario', data: {'usuario': usuario}}).then(function(dados){
-            alert('Registrado com sucesso');
-            $location.path('/login');
-        },
-        function(err){
-            alert('Erro ao registrar usuário');
-        });
+        $http({ method: 'POST', url: '/usuario', data: { 'usuario': usuario } }).then(function(dados) {
+                alert('Registrado com sucesso');
+                $location.path('/login');
+            },
+            function(err) {
+                alert('Erro ao registrar usuário');
+            });
 
     };
 }]);
 
-app.controller('mapController', function($scope, $http){
+app.controller('mapController', function($scope, $http) {
     $scope.lat = null;
     $scope.lng = null;
-    $scope.locate = function(){
+    $scope.locate = function() {
         navigator.geolocation.getCurrentPosition($scope.initMap);
     }
 
@@ -115,7 +115,7 @@ app.controller('mapController', function($scope, $http){
             center: myLatLng
         });
         $scope.lat = (myLatLng.lat());
-        $scope. lng = (myLatLng.lng());
+        $scope.lng = (myLatLng.lng());
 
 
         var userMarker = new google.maps.Marker({
@@ -126,7 +126,7 @@ app.controller('mapController', function($scope, $http){
         map.setZoom(17);
         map.panTo(userMarker.position);
 
-        google.maps.event.addListener(userMarker, 'dragend', function (event) {
+        google.maps.event.addListener(userMarker, 'dragend', function(event) {
             $scope.lat = (this.getPosition().lat());
             $scope.lng = (this.getPosition().lng());
         });
@@ -134,31 +134,35 @@ app.controller('mapController', function($scope, $http){
     }
     $scope.locate();
 
-    $scope.registrarPonto = function(){
-        $http({method: 'POST', url: '/ponto', data: {
-            'latitude': $scope.lat,
-            'longitude': $scope.lng,
-            'descricao': $scope.descricao,
-            'tipo': $scope.tipo
-        }}).then(
-            function(result){
+    $scope.registrarPonto = function() {
+        $http({
+            method: 'POST',
+            url: '/ponto',
+            data: {
+                'latitude': $scope.lat,
+                'longitude': $scope.lng,
+                'descricao': $scope.descricao,
+                'tipo': $scope.tipo
+            }
+        }).then(
+            function(result) {
                 alert(result.data.msg);
             }
         );
     }
 });
 
-app.controller("updateController", function($scope, $http){
+app.controller("updateController", function($scope, $http) {
     $scope.pontos = [];
     const cor = [
-        'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     ];
     $http.get('/meusPontos').then(
-        function(result){
+        function(result) {
             $scope.pontos = result.data.Pontos;
 
-            $scope.locate = function(){
+            $scope.locate = function() {
                 navigator.geolocation.getCurrentPosition($scope.initMap);
             }
 
@@ -172,9 +176,9 @@ app.controller("updateController", function($scope, $http){
                 $scope.lat = (myLatLng.lat());
                 $scope.lng = (myLatLng.lng());
 
-                for(i in $scope.pontos){
+                for (i in $scope.pontos) {
                     var userMarker = new google.maps.Marker({
-                        position: {'lat': parseFloat($scope.pontos[i].latitude), 'lng': parseFloat($scope.pontos[i].longitude)},
+                        position: { 'lat': parseFloat($scope.pontos[i].latitude), 'lng': parseFloat($scope.pontos[i].longitude) },
                         map: map,
                         draggable: true,
                         title: $scope.pontos[i].descricao,
@@ -185,9 +189,9 @@ app.controller("updateController", function($scope, $http){
 
                 }
 
-                function pog(i, userMarker){
+                function pog(i, userMarker) {
                     var infowindow = new google.maps.InfoWindow({
-                        content: '<h4>'+$scope.pontos[i].descricao+'</h4>'
+                        content: '<h4>' + $scope.pontos[i].descricao + '</h4>'
                     });
 
 
@@ -195,7 +199,7 @@ app.controller("updateController", function($scope, $http){
                         infowindow.open(map, userMarker);
                     });
 
-                    google.maps.event.addListener(userMarker, 'dragend', function (event) {
+                    google.maps.event.addListener(userMarker, 'dragend', function(event) {
                         /*console.log(this.getPosition().lat());
                         console.log(this.getPosition().lng());
                         console.log(i);*/
@@ -218,10 +222,10 @@ app.controller("updateController", function($scope, $http){
         }
     );
 
-    $scope.salvar = function(){
+    $scope.salvar = function() {
         console.log('dsfsdfdsfdsfdsf');
-        $http({method: 'post', data: {'pontos': $scope.pontos}, url: '/atualizarPontos'}).then(
-            function(result){
+        $http({ method: 'post', data: { 'pontos': $scope.pontos }, url: '/atualizarPontos' }).then(
+            function(result) {
                 console.log(result.data);
             }
         );

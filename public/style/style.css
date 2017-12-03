@@ -1,27 +1,39 @@
-#inputImage{
-  height: 0;
-  width: 0;
-}
-.inputImage{
-  border: 1px solid #cccccc;
-  padding: 5px;
-  border-radius: 50px;
+#inputImage {
+    height: 0;
+    width: 0;
 }
 
-.textbox{
-  resize: vertical;
-  max-height: 300px;
-  height: 50%;
-  min-height: 144px;
-}
-.rowButtons{
-  margin-top: 10px;
+.inputImage {
+    border: 1px solid #cccccc;
+    padding: 5px;
+    border-radius: 50px;
 }
 
-.formLogin{
-  border-top: 50px;
-  margin-top: 50px;
+.color-red {
+    color: red
 }
+
+.color-verde {
+    color: green
+}
+
+.textbox {
+    resize: vertical;
+    max-height: 300px;
+    height: 50%;
+    min-height: 144px;
+}
+
+.rowButtons {
+    margin-top: 10px;
+}
+
+.formLogin {
+    border-top: 50px;
+    margin-top: 50px;
+}
+
+
 /*.form-class{
     border: 3px solid #f1f1f1;
     margin-left: 5%;
@@ -76,19 +88,22 @@ img.avatar {
     padding: 16px;
 }
 */
+
 span.psw {
     float: right;
     padding-top: 16px;
 }
 
+
 /* Change styles for span and cancel button on extra small screens */
+
 @media screen and (max-width: 300px) {
     span.psw {
-       display: block;
-       float: none;
+        display: block;
+        float: none;
     }
     .cancelbtn {
-       width: 100%;
+        width: 100%;
     }
 }
 
@@ -99,6 +114,7 @@ span.psw {
     max-height: 80%;
 }
 
+
 /*
 
 body {
@@ -107,6 +123,7 @@ body {
 }
 
 */
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -129,7 +146,8 @@ body {
     transition: 0.3s
 }
 
-.sidenav a:hover, .offcanvas a:focus{
+.sidenav a:hover,
+.offcanvas a:focus {
     color: #f1f1f1;
 }
 
@@ -147,9 +165,15 @@ body {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
+
+
 /*
 
 
@@ -178,12 +202,13 @@ body {
 */
 
 .imgperfil {
-    max-width:500px;
-    max-height:500px;
+    max-width: 500px;
+    max-height: 500px;
     width: auto;
     height: auto;
     margin-bottom: 10px;
 }
+
 .campo-imagem {
     height: auto;
     width: auto;
@@ -194,7 +219,7 @@ body {
 .postado {
     margin-bottom: 30px;
     margin-top: 30px;
-    max-width:100%;
+    max-width: 100%;
     width: auto;
     height: auto;
 }
