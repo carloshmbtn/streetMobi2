@@ -1,10 +1,10 @@
-<span style="font-size:30px;cursor:pointer" onclick="openNav()"> <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()"> <i class="fa fa-bars fa-fw" aria-hidden="true" style="color: #C70051"></i>
 </span>
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<div id="mySidenav" class="sidenav" style="background-color: #C70051">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-  <a href="javascript:change('/#/')"> <i class="fa fa-home" aria-hidden="true"></i>&nbsp; Home</a>
-  <a href="javascript:change('/#/registrarPonto')"> <i class="fa fa-user" aria-hidden="true"></i>&nbsp; Adicionar Ponto</a>
-  <a href="javascript:change('/#/atualizarPontos')"> <i class="fa fa-user" aria-hidden="true"></i>&nbsp; Atualizar Ponto</a>
-  <a href="#" ng-click="usuario.deslogar();"> <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Logout</a>
+    <a href="javascript:change('/#/')" style="color:white ; font-size:19px"> <i class="fa fa-home" aria-hidden="true"></i>&nbsp; <strong>Home</strong> </a>
+    <a href="javascript:change('/#/registrarPonto')" style="color:white ; font-size:19px"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp; <strong>Adicionar Ponto</strong> </a>
+    <a href="javascript:change('/#/atualizarPontos')" style="color:white ; font-size:19px"> <i class="fa fa-edit" aria-hidden="true"></i>&nbsp; <strong>Atualizar Ponto</strong> </a>
+    <a href="#" ng-click="usuario.deslogar();" style="color:white ; font-size:19px"> <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; <strong>Logout</strong> </a>
 </div>

@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Street Mobi</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="style/style.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-        <script src="lib/angular.min.js"></script>
-        <script src="lib/angular-route.min.js"></script>
-        <script src="lib/ng-file-upload.min.js"></script>
-        <script src="lib/ng-file-upload-shim.min.js"></script>
-        <script src="lib/ngStorage.min.js"></script>
-        <script src="app.js"></script>
-        <script src="config.js"></script>
-        <script src="model/usuarioFactory.js"></script>
-        <script src="model/usuario.js"></script>
-        <script src="controller/controller.js"></script>
-        <script src="services/authservice.js"></script>
-        <script src="util.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js" ></script>
-        <style>
-            #map{
-                  height: 400px;
-                  width:  100%;
-                  border: 2px solid red;
-            }
-        </style>
 
-    </head>
-    <body ng-app="app">
-        <div ng-view></div>
-    </body>
+<head>
+    <title>Street Mobi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+    <!-- FONT-AWESOME -->
+    <script src="https://use.fontawesome.com/dd22bb874c.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <script src="lib/ng-file-upload.min.js"></script>
+    <script src="lib/ng-file-upload-shim.min.js"></script>
+    <script src="lib/ngStorage.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="model/usuarioFactory.js"></script>
+    <script src="model/usuario.js"></script>
+    <script src="controller/controller.js"></script>
+    <script src="services/authservice.js"></script>
+    <script src="util.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border: 2px solid red;
+        }
+        
+        .fa-mobilidade-color {
+            color: rgb(0, 255, 255)!important;
+        }
+        
+        .fa-user-color {
+            color: rgb(0, 255, 85)!important;
+        }
+        
+        .fa-certificado-color {
+            color: rgb(255, 251, 0)!important;
+        }
+    </style>
+
+</head>
+
+<body ng-app="app">
+    <div ng-view></div>
+</body>
+
 </html>
