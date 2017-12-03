@@ -2,7 +2,14 @@
 
 <div id="main">
     <div id="map"></div>
-    <label> Descrição: </label>
-    <input type="text" ng-model="descricao"/>
-    <button ng-click="registrarPonto();">Registrar</button>
+    <form>
+        <label> Descrição: </label>
+        <input type="text" ng-model="descricao"/>
+        <label> Tipo: </label>
+        <select ng-model="tipo">
+            <option value="0">Estabelecimento</option>
+            <option value="1">Via</option>
+        </select>
+        <button ng-click="registrarPonto();">Registrar</button>
+    </form>
 </div>

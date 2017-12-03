@@ -26,6 +26,10 @@ app.config(function($routeProvider) {
     .when("/registrarPonto", {
         templateUrl: "views/ponto.html",
         controller: "mapController"
+    })
+    .when("/atualizarPontos", {
+        templateUrl: "views/atualizar.html",
+        controller: "updateController"
     });
 });
 

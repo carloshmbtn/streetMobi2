@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes){
         'latitude': DataTypes.STRING,
         'longitude': DataTypes.STRING,
         'grupoX': DataTypes.INTEGER,
-        'grupoY': DataTypes.INTEGER
+        'grupoY': DataTypes.INTEGER,
+        'tipo': DataTypes.STRING
     });
     return ponto;
 };
