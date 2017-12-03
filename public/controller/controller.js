@@ -76,8 +76,19 @@ app.controller('appController', ['$scope', 'dados', 'UsuarioFactory', 'Config', 
 app.controller('registrarController', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.registrar = function(nome, login, email, senha, senhaC, necessidade) {
 
-        if (senha != senhaC) {
+        if (!senha || senha != senhaC) {
             alert('Senha não corresponde a confirmar senha');
+            return;
+        }
+        if(email && email.search('@') < 0 && email.search('.') < 0){
+            alert('Email não é válido!!');
+            return;
+        }
+
+        console.log(necessidade);
+
+        if(!nome || !login || !necessidade || !email){
+            alert('Informe todos os campos!!!');
             return;
         }
 
@@ -90,8 +101,13 @@ app.controller('registrarController', ['$scope', '$http', '$location', function(
         };
 
         $http({ method: 'POST', url: '/usuario', data: { 'usuario': usuario } }).then(function(dados) {
-                alert('Registrado com sucesso');
-                $location.path('/login');
+                if(dados.data.erro){
+                    alert(dados.data.erro.msg);
+                }
+                else{
+                    alert('Registrado com sucesso');
+                    $location.path('/login');
+                }
             },
             function(err) {
                 alert('Erro ao registrar usuário');
@@ -103,6 +119,7 @@ app.controller('registrarController', ['$scope', '$http', '$location', function(
 app.controller('mapController', function($scope, $http) {
     $scope.lat = null;
     $scope.lng = null;
+    $scope.tipo = '0';
     $scope.locate = function() {
         navigator.geolocation.getCurrentPosition($scope.initMap);
     }
@@ -223,10 +240,9 @@ app.controller("updateController", function($scope, $http) {
     );
 
     $scope.salvar = function() {
-        console.log('dsfsdfdsfdsfdsf');
         $http({ method: 'post', data: { 'pontos': $scope.pontos }, url: '/atualizarPontos' }).then(
             function(result) {
-                console.log(result.data);
+                alert('Pontos atualizados com sucsso!');
             }
         );
     }
