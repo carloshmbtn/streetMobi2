@@ -32,9 +32,14 @@ app.all('*', function (req, res, next) {
 app.post('/usuario', routes.criarUsuario);
 app.post('/login', routes.logarUsuario);
 app.post('/ponto', routes.valida, routes.cadastrarPonto);
-app.get('/pontos', routes.buscarPontos);
+app.get('/pontos', routes.valida, routes.buscarPontos);
+app.get('/meusPontos', routes.valida, routes.meusPontos);
+app.post('/atualizarPontos', routes.valida, routes.atualizarPontos);
 app.get('/teste', routes.valida, routes.teste);
 
+/*definição de relações*/
+models.Usuario.hasMany(models.Ponto);
+models.Ponto.belongsTo(models.Usuario);
 
 /* Faz a sincronização entre os modelos e o banco de dados */
 models.sequelize.sync();

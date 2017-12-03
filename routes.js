@@ -98,7 +98,6 @@ module.exports = {
                 if(encontrado.length > 0 && encontrado[0].senha == hash.sha256().update(usuario.senha).digest('hex')){
                     var token = jwt.sign({
                         login: usuario.login,
-                        imagem: encontrado[0].imagem,
                         id: encontrado[0].id},
                         config.jwtKey,
                         {expiresIn: '10m'}
@@ -143,22 +142,31 @@ module.exports = {
     },
 
     cadastrarPonto: function(req, res){
+
+        const id = req.decoded.id;
+
         var ponto = {
             descricao: req.body.descricao,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
+            tipo: req.body.tipo,
             grupoX: '1',
             grupoY: '1'
         };
 
-        models.Ponto.create(ponto).then(
-            function(){
-                res.send({'erro': false, 'msg': 'Cadastrado com suceso!'});
-            },
-            function(err){
-                res.send({'erro': true, 'msg': 'Erro: '+err});
+        models.Usuario.findById(id).then(
+            function(u){
+                models.Ponto.create(ponto).then(
+                    function(p){
+                        u.addPontos([p]);
+                        res.send({'erro': false, 'msg': 'Cadastrado com suceso!'});
+                    },
+                    function(err){
+                        res.send({'erro': true, 'msg': 'Erro: '+err});
+                    }
+                );
             }
-        );
+        )
     },
 
     buscarPontos: function(req, res){
@@ -167,6 +175,46 @@ module.exports = {
                 res.send(pontos);
             }
         );
+    },
+
+    meusPontos: function(req, res){
+        const id = req.decoded.id;
+
+        models.Usuario.find({
+            'where': {'id': id},
+            'include': [models.Ponto]
+        }).then(
+            function(u){
+                res.send(u);
+            }
+        );
+    },
+
+    atualizarPontos: function(req, res){
+        var pontos = req.body.pontos;
+
+        function pogRep(){
+            if(pontos.length > 0){
+                var final = pontos.pop();
+
+                //delete final.createdAt;
+                //delete final.updatedAt;
+
+                models.Ponto.findById(final.id).then(
+                    function(p){
+                        p.updateAttributes(final).then(
+                            function(){
+                                pogRep();
+                            }
+                        );
+                    }
+                );
+            }
+            else{
+                res.send('Deu tudo certo!!');
+            }
+        }
+        pogRep();
     },
 
     teste: function(req, res){
